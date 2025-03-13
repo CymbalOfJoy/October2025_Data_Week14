@@ -9,7 +9,6 @@ function buildMetadata(sample) {
     let sample_metadata = metadata.filter(row => row.id == sample)[0];
     console.log(sample_metadata);
 
-
     // Use d3 to select the panel with id of `#sample-metadata`
     let panel = d3.select("#sample-metadata");
 
@@ -21,7 +20,7 @@ function buildMetadata(sample) {
     Object.entries(sample_metadata).forEach(([key, value]) => {
       panel.append("p").text(`${key}: ${value}`);
     });
-    
+
   });
 }
 
@@ -41,8 +40,7 @@ function buildCharts(sample) {
     let otu_labels = sample_data.otu_labels;
     let sample_values = sample_data.sample_values;
 
-
-    // Build a Bubble Chart
+    // Build a Bubble Chart with reds and purples
     let trace = {
       x: otu_ids,
       y: sample_values,
@@ -52,14 +50,13 @@ function buildCharts(sample) {
         color: otu_ids,
         size: sample_values,
         colorscale: [
-          [0, "rgb(229, 252, 204)"],
-          [0.2, "rgb(179, 230, 128)"],
-          [0.4, "rgb(102, 205, 170)"],
-          [0.6, "rgb(34, 139, 34)"], 
-          [0.8, "rgb(0, 128, 128)"], 
-          [1, "rgb(0, 76, 76)"] 
+          [0, "rgb(255, 204, 255)"], // Light pinkish purple
+          [0.2, "rgb(204, 102, 255)"], // Medium purple
+          [0.4, "rgb(153, 0, 204)"],   // Dark purple
+          [0.6, "rgb(204, 0, 102)"],   // Red-pink
+          [0.8, "rgb(255, 51, 102)"],  // Bright red-pink
+          [1, "rgb(204, 0, 0)"]        // Dark red
         ]
-        
       }
     };
 
@@ -80,10 +77,9 @@ function buildCharts(sample) {
         }
       },
       height: 700,
-      paper_bgcolor: '#9df2c5',
-      plot_bgcolor: '#82f7b9'
+      paper_bgcolor: '#6a0d3c', // Dark red background
+      plot_bgcolor: '#d16d7f'    // Lighter pinkish red
     };
-
 
     // Render the Bubble Chart
     Plotly.newPlot('bubble', traces, layout);
@@ -91,22 +87,21 @@ function buildCharts(sample) {
     // For the Bar Chart, map the otu_ids to a list of strings for your yticks
     let bar_ticks = otu_ids.map(x => `OTU: ${x} `);
 
-    // Build a Bar Chart
-    // Don't forget to slice and reverse the input data appropriately
+    // Build a Bar Chart with reds and purples
     let bar_trace = {
       y: bar_ticks.slice(0, 10).reverse(),
       x: sample_values.slice(0, 10).reverse(),
       type: 'bar',
       hovertext: otu_labels.slice(0, 10).reverse(),
       marker: {
-        color: 'forestgreen',
+        color: '#9b1c36', // Deep red color
         line: {
           color: 'black', // Add border around bars
           width: 1.5
         }
       },
       orientation: 'h'
-    }
+    };
 
     // Trace Array
     let bar_traces = [bar_trace];
@@ -122,10 +117,9 @@ function buildCharts(sample) {
         }
       },
       height: 700,
-      paper_bgcolor: '#9df2c5',
-      plot_bgcolor: '#82f7b9'
-    }
-
+      paper_bgcolor: '#6a0d3c', // Dark red background
+      plot_bgcolor: '#d16d7f'    // Lighter pinkish red
+    };
 
     // Render the Bar Chart
     Plotly.newPlot('bar', bar_traces, bar_layout);
