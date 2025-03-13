@@ -18,7 +18,7 @@ function buildMetadata(sample) {
     // Inside a loop, you will need to use d3 to append new
     // tags for each key-value in the filtered metadata.
     Object.entries(sample_metadata).forEach(([key, value]) => {
-      panel.append("p").text(`${key}: ${value}`);
+      panel.append("p").text(`${key}: ${value}`).style("color", "#f1f1f1"); // Lighter text color
     });
 
   });
@@ -64,21 +64,25 @@ function buildCharts(sample) {
 
     let layout = {
       title: {
-        text: 'Bacteria Cultures per Sample'
+        text: 'Bacteria Cultures per Sample',
+        font: { color: '#f1f1f1' } // Lighter title text color
       },
       yaxis: {
         title: {
-          text: 'Number of Bacteria'
+          text: 'Number of Bacteria',
+          font: { color: '#f1f1f1' } // Lighter axis text color
         }
       },
       xaxis: {
         title: {
-          text: 'OTU ID'
+          text: 'OTU ID',
+          font: { color: '#f1f1f1' } // Lighter axis text color
         }
       },
       height: 700,
       paper_bgcolor: '#6a0d3c', // Dark red background
-      plot_bgcolor: '#d16d7f'    // Lighter pinkish red
+      plot_bgcolor: '#d16d7f',    // Lighter pinkish red
+      font: { color: '#f1f1f1' }  // Lighter text color for other chart elements
     };
 
     // Render the Bubble Chart
@@ -109,16 +113,19 @@ function buildCharts(sample) {
     // Titles
     let bar_layout = {
       title: {
-        text: `Top 10 Bacteria Cultures Found`
+        text: `Top 10 Bacteria Cultures Found`,
+        font: { color: '#f1f1f1' } // Lighter title text color
       },
       xaxis: {
         title: {
-          text: 'Number of Bacteria'
+          text: 'Number of Bacteria',
+          font: { color: '#f1f1f1' } // Lighter axis text color
         }
       },
       height: 700,
       paper_bgcolor: '#6a0d3c', // Dark red background
-      plot_bgcolor: '#d16d7f'    // Lighter pinkish red
+      plot_bgcolor: '#d16d7f',    // Lighter pinkish red
+      font: { color: '#f1f1f1' }  // Lighter text color for other chart elements
     };
 
     // Render the Bar Chart
@@ -146,7 +153,7 @@ function init() {
       let name = names[i];
 
       // Create option
-      dropdown.append("option").text(name);
+      dropdown.append("option").text(name).style("color", "#f1f1f1"); // Lighter text color
     }
 
     // Get the first sample from the list
